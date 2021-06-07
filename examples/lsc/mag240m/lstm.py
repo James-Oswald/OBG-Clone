@@ -156,11 +156,11 @@ class GNN(LightningModule):
                 self.convs.append(SAGEConv(hidden_channels, hidden_channels))
 
         for _ in range(num_layers):
-            self.norms.append(LSTM(num_features, hidden_channels, num_layers))
+            self.norms.append(LSTM(MAG240M.num_features, hidden_channels, num_layers))
 
         self.mlp = Sequential(
             Linear(hidden_channels, hidden_channels),
-            LSTM(num_features, hidden_channels, num_layers),
+            LSTM(MAG240M.num_features, hidden_channels, num_layers),
             ReLU(inplace=True),
             Dropout(p=self.dropout),
             Linear(hidden_channels, out_channels),
